@@ -29,13 +29,14 @@ public class BlockSys : MonoBehaviour
         foreach(Transform subBlock in rig.transform)
         {
             
-            if (subBlock.transform.position.x > GameManager.larg ||
+            if (subBlock.transform.position.x >= GameManager.larg ||
                 subBlock.transform.position.x < 0 ||
                 subBlock.transform.position.y < 0)
             {
                 return false;
             }
-            if (subBlock.position.y < GameManager.alt && gameManager.grid[Mathf.FloorToInt(subBlock.position.x),
+            if (subBlock.position.y < GameManager.alt && 
+                gameManager.grid[Mathf.FloorToInt(subBlock.position.x),
                Mathf.FloorToInt(subBlock.position.y)] != null)
             {
                 return false;
@@ -60,7 +61,7 @@ public class BlockSys : MonoBehaviour
                     movable = false;
                     gameObject.transform.position += new Vector3(0, 1, 0);
                     RegisterBlock();
-                    gameManager.ClearLines();
+                    //gameManager.ClearLines();
                     gameManager.SpawnBlock();
                 }
             }
@@ -73,6 +74,7 @@ public class BlockSys : MonoBehaviour
                     movable = false;
                     gameObject.transform.position += new Vector3(0, 1, 0);
                     RegisterBlock();
+                    //gameManager.ClearLines();
                     gameManager.SpawnBlock();
                 }
             }
