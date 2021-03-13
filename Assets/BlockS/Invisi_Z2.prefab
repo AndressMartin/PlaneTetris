@@ -1,5 +1,18 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &5855078645436982472
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5311145925882600581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 793d6271d1dd5c047897afafac8706a1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  holder: {fileID: 0}
 --- !u!1001 &2581764055049559120
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -77,7 +90,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: ca5299d1edb36cd4c840550fbfc33ae3, type: 2}
     - target: {fileID: 7665337323141660885, guid: e95e22bf97e14ee4c88f4e522a3da857, type: 3}
       propertyPath: m_Name
-      value: InvisiZ2
+      value: Invisi_Z2
       objectReference: {fileID: 0}
     - target: {fileID: 8221944029027476458, guid: e95e22bf97e14ee4c88f4e522a3da857, type: 3}
       propertyPath: m_Materials.Array.size
@@ -87,5 +100,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: ca5299d1edb36cd4c840550fbfc33ae3, type: 2}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7273468526406158581, guid: e95e22bf97e14ee4c88f4e522a3da857, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: e95e22bf97e14ee4c88f4e522a3da857, type: 3}
+--- !u!1 &5311145925882600581 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7665337323141660885, guid: e95e22bf97e14ee4c88f4e522a3da857, type: 3}
+  m_PrefabInstance: {fileID: 2581764055049559120}
+  m_PrefabAsset: {fileID: 0}

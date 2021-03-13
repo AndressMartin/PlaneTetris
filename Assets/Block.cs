@@ -7,13 +7,16 @@ public class Block : MonoBehaviour
     bool movable = true;
     float timer = 0f;
     public GameObject holder;
+    public GameObject shadow;
+    private GameObject myShadow;
     GameManager gameManager;
 
     // Start is called before the first frame update
     void Start()
     {
         gameManager = FindObjectOfType<GameManager>();
-
+        holder = transform.GetChild(0).gameObject;
+        myShadow = Instantiate(shadow);
     } 
     void RegisterBlock() 
     {
@@ -47,6 +50,19 @@ public class Block : MonoBehaviour
         return true;
     }
     // Update is called once per frame
+
+    void CallShadow()
+    {
+        myShadow.transform.position = transform.position;
+        myShadow.GetComponent<Invisible>().movable = true;
+    }
+    void RotateShadow()
+    {
+        Debug.Log("Rotating");
+        myShadow.transform.position = transform.position;
+        myShadow.GetComponent<Invisible>().holder.transform.eulerAngles = holder.transform.eulerAngles;
+        myShadow.GetComponent<Invisible>().movable = true;
+    }
     void Update()
     {
         if (movable)
@@ -65,6 +81,7 @@ public class Block : MonoBehaviour
                     RegisterBlock();
                     //gameManager.ClearLines();
                     gameManager.SpawnBlock();
+                    Destroy(myShadow);
                 }
             }
             else if (timer > GameManager.dropTime)
@@ -78,6 +95,7 @@ public class Block : MonoBehaviour
                     RegisterBlock();
                     //gameManager.ClearLines();
                     gameManager.SpawnBlock();
+                    Destroy(myShadow);
                 }
             }
             //Sideways
@@ -88,6 +106,7 @@ public class Block : MonoBehaviour
                 {
                     gameObject.transform.position += new Vector3(1, 0, 0);
                 }
+                CallShadow();
             }
             else if (Input.GetKeyDown(KeyCode.RightArrow))
             {
@@ -96,6 +115,7 @@ public class Block : MonoBehaviour
                 {
                     gameObject.transform.position -= new Vector3(1, 0, 0);
                 }
+                CallShadow();
             }
             //Rotation
             if (Input.GetKeyDown(KeyCode.UpArrow))
@@ -105,6 +125,7 @@ public class Block : MonoBehaviour
                 {
                     holder.transform.eulerAngles += new Vector3(0, 0, 90);
                 }
+                RotateShadow();
             }
         }
         
