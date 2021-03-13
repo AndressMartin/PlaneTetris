@@ -6,9 +6,9 @@ public class GameManager : MonoBehaviour
 {
     public static float dropTime = 0.8f;
     public static float quickDropTime = 0.04f;
-    public static int larg = 10, alt = 24;
-    public GameObject[] blocks;
-    public Transform[,] grid = new Transform[larg, alt];
+    public static int largura = 10, altura = 24;
+    public GameObject[] blocos;
+    public Transform[,] grid = new Transform[largura, altura];
 
     private void Awake()
     {
@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     }
     private void Update()
     {
-        for (int y = 0; y < alt; y++)
+        for (int y = 0; y < altura; y++)
         {
             if (IsLineComplete(y))
             {
@@ -43,13 +43,13 @@ public class GameManager : MonoBehaviour
 
     private void MoveLines(int y)
     {
-        for (int f = 0; f < alt-y; f++)
+        for (int f = 0; f < altura-y; f++)
         {
-            for (int i = y; i < alt; i++)
+            for (int i = y; i < altura; i++)
             {
-                for (int x = 0; x < larg; x++)
+                for (int x = 0; x < largura; x++)
                 {
-                    if (grid[x, y+1] != null && y < alt)
+                    if (grid[x, y+1] != null && y < altura)
                     {
                         grid[x, y] = grid[x, y + 1];
                         grid[x, y].gameObject.transform.position -= new Vector3(0, 1, 0);
@@ -65,7 +65,7 @@ public class GameManager : MonoBehaviour
 
     private void DestroyLine(int y)
     {
-        for (int x = 0; x < larg; x++)
+        for (int x = 0; x < largura; x++)
         {
             //Debug.LogWarning($"{grid[x, y].position} is destroyed.");
 
@@ -76,7 +76,7 @@ public class GameManager : MonoBehaviour
 
     bool IsLineComplete(int y) 
     {
-        for (int x = 0; x < larg; x++)
+        for (int x = 0; x < largura; x++)
         {
             if (grid[x,y] == null)
             {
@@ -89,7 +89,7 @@ public class GameManager : MonoBehaviour
     public void SpawnBlock()
     {
         float guess = Random.Range(0, 1f);
-        guess *= blocks.Length;
-        Instantiate(blocks[Mathf.FloorToInt(guess)]);
+        guess *= blocos.Length;
+        Instantiate(blocos[Mathf.FloorToInt(guess)]);
     }
 }

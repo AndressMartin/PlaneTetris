@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BlockSys : MonoBehaviour
+public class Block : MonoBehaviour
 {
     bool movable = true;
     float timer = 0f;
-    public GameObject rig;
+    public GameObject holder;
     GameManager gameManager;
 
     // Start is called before the first frame update
@@ -17,25 +17,27 @@ public class BlockSys : MonoBehaviour
     } 
     void RegisterBlock() 
     {
-        foreach (Transform subBlock in rig.transform)
+        foreach (Transform subBlock in holder.transform)
         {
-            gameManager.grid[Mathf.FloorToInt(subBlock.position.x),
+            if (Mathf.FloorToInt(subBlock.position.y) < GameManager.altura)
+                gameManager.grid[Mathf.FloorToInt(subBlock.position.x),
                 Mathf.FloorToInt(subBlock.position.y)] = subBlock;
+            else Debug.Log("YOU LOST");
         }
     }
 
     bool CheckValid()
     {
-        foreach(Transform subBlock in rig.transform)
+        foreach(Transform subBlock in holder.transform)
         {
             
-            if (subBlock.transform.position.x >= GameManager.larg ||
+            if (subBlock.transform.position.x >= GameManager.largura ||
                 subBlock.transform.position.x < 0 ||
                 subBlock.transform.position.y < 0)
             {
                 return false;
             }
-            if (subBlock.position.y < GameManager.alt && 
+            if (subBlock.position.y < GameManager.altura && 
                 gameManager.grid[Mathf.FloorToInt(subBlock.position.x),
                Mathf.FloorToInt(subBlock.position.y)] != null)
             {
@@ -98,10 +100,10 @@ public class BlockSys : MonoBehaviour
             //Rotation
             if (Input.GetKeyDown(KeyCode.UpArrow))
             {
-                rig.transform.eulerAngles -= new Vector3(0, 0, 90);
+                holder.transform.eulerAngles -= new Vector3(0, 0, 90);
                 if (!CheckValid())
                 {
-                    rig.transform.eulerAngles += new Vector3(0, 0, 90);
+                    holder.transform.eulerAngles += new Vector3(0, 0, 90);
                 }
             }
         }
