@@ -80,7 +80,7 @@ public class Block : MonoBehaviour
                     gameObject.transform.position += new Vector3(0, 1, 0);
                     RegisterBlock();
                     //gameManager.ClearLines();
-                    gameManager.SpawnBlock();
+                    gameManager.SpawnBlock(GameManager.nextBlock);
                     Destroy(myShadow);
                 }
             }
@@ -94,7 +94,7 @@ public class Block : MonoBehaviour
                     gameObject.transform.position += new Vector3(0, 1, 0);
                     RegisterBlock();
                     //gameManager.ClearLines();
-                    gameManager.SpawnBlock();
+                    gameManager.SpawnBlock(GameManager.nextBlock);
                     Destroy(myShadow);
                 }
             }

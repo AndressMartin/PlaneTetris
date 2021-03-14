@@ -6,8 +6,11 @@ public class GameManager : MonoBehaviour
 {
     public static float dropTime = 0.8f;
     public static float quickDropTime = 0.04f;
+    public static float nextBlock;
     public static int largura = 10, altura = 24;
     public GameObject[] blocos;
+    public GameObject[] blocosUI;
+    public GameObject currentUIBlock;
     public Transform[,] grid = new Transform[largura, altura];
 
     private void Awake()
@@ -85,11 +88,46 @@ public class GameManager : MonoBehaviour
         }
         return true;
     }
-
     public void SpawnBlock()
     {
-        float guess = Random.Range(0, 1f);
-        guess *= blocos.Length;
-        Instantiate(blocos[Mathf.FloorToInt(guess)]);
+        float currentBlock = Random.Range(0, 1f);
+        currentBlock *= blocos.Length;
+        nextBlock = Random.Range(0, 1f);
+        if (Mathf.FloorToInt(currentBlock) == Mathf.FloorToInt(nextBlock))
+        {
+            nextBlock = Random.Range(0, 1f);
+        }
+        else
+        {
+            Instantiate(blocos[Mathf.FloorToInt(currentBlock)]);
+            ShowNextBlock();
+        }
     }
+
+    public void SpawnBlock(float _currentBlock)
+    {
+        _currentBlock = Random.Range(0, 1f);
+        _currentBlock *= blocos.Length;
+        nextBlock = Random.Range(0, 1f);
+        while (Mathf.FloorToInt(_currentBlock) == Mathf.FloorToInt(nextBlock))
+        {
+            nextBlock = Random.Range(0, 1f);
+        }
+        DestroyUIBlock();
+        Instantiate(blocos[Mathf.FloorToInt(_currentBlock)]);
+        ShowNextBlock();
+    }
+
+    
+    private void ShowNextBlock()
+    {
+        currentUIBlock = Instantiate(blocosUI[Mathf.FloorToInt(nextBlock)]);
+    }
+    private void DestroyUIBlock()
+    {
+        Destroy(currentUIBlock);
+    }
+
+
+
 }
