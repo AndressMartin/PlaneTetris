@@ -12,7 +12,6 @@ public class GameManager : MonoBehaviour
     public GameObject[] blocosUI;
     public GameObject currentUIBlock;
     public Transform[,] grid = new Transform[largura, altura];
-
     private void Awake()
     {
         
@@ -32,17 +31,6 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-    //public void ClearLines()
-    //{
-    //    for (int y = 0; y < alt; y++)
-    //    {
-    //        if (IsLineComplete(y))
-    //        {
-    //            DestroyLine(y);
-    //            MoveLines(y);
-    //        }
-    //    }
-    //}
 
     private void MoveLines(int y)
     {
@@ -61,7 +49,6 @@ public class GameManager : MonoBehaviour
                 }
             }
             y++;
-            Debug.Log($"y is {y}");
         }
         
     }
@@ -70,11 +57,9 @@ public class GameManager : MonoBehaviour
     {
         for (int x = 0; x < largura; x++)
         {
-            //Debug.LogWarning($"{grid[x, y].position} is destroyed.");
-
             Destroy(grid[x, y].gameObject);
-            //grid[x, y] = null;
         }
+        Score.Increase();
     }
 
     bool IsLineComplete(int y) 
@@ -93,22 +78,17 @@ public class GameManager : MonoBehaviour
         float currentBlock = Random.Range(0, 1f);
         currentBlock *= blocos.Length;
         nextBlock = Random.Range(0, 1f);
-        if (Mathf.FloorToInt(currentBlock) == Mathf.FloorToInt(nextBlock))
-        {
-            nextBlock = Random.Range(0, 1f);
-        }
-        else
-        {
-            Instantiate(blocos[Mathf.FloorToInt(currentBlock)]);
-            ShowNextBlock();
-        }
+        nextBlock *= blocos.Length;
+        Instantiate(blocos[Mathf.FloorToInt(currentBlock)]);
+        ShowNextBlock();
     }
 
     public void SpawnBlock(float _currentBlock)
     {
-        _currentBlock = Random.Range(0, 1f);
-        _currentBlock *= blocos.Length;
+        _currentBlock = nextBlock;
         nextBlock = Random.Range(0, 1f);
+        nextBlock *= blocos.Length;
+
         while (Mathf.FloorToInt(_currentBlock) == Mathf.FloorToInt(nextBlock))
         {
             nextBlock = Random.Range(0, 1f);

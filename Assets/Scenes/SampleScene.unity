@@ -322,8 +322,9 @@ GameObject:
   - component: {fileID: 853585425}
   - component: {fileID: 853585427}
   - component: {fileID: 853585426}
+  - component: {fileID: 853585428}
   m_Layer: 5
-  m_Name: CurrentScoreTxt
+  m_Name: ScoreNumber
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -447,6 +448,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 853585424}
   m_CullTransparentMesh: 1
+--- !u!114 &853585428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 853585424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79acc48ac1e69814fb161635e7868148, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &878557567
 GameObject:
   m_ObjectHideFlags: 0
@@ -492,6 +505,7 @@ MonoBehaviour:
   - {fileID: 5718366926275866138, guid: e0c133ef4dfb0664292db1ad3057dc1d, type: 3}
   - {fileID: 3350167997770558156, guid: fb1fefa42cd377a478c46e028c528b54, type: 3}
   - {fileID: 49641528165278307, guid: 9276ad00ad5eea447aa36cef01d567ac, type: 3}
+  currentUIBlock: {fileID: 0}
 --- !u!4 &878557569
 Transform:
   m_ObjectHideFlags: 0

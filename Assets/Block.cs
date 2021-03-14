@@ -58,7 +58,7 @@ public class Block : MonoBehaviour
     }
     void RotateShadow()
     {
-        Debug.Log("Rotating");
+        //Debug.Log("Rotating");
         myShadow.transform.position = transform.position;
         myShadow.GetComponent<Invisible>().holder.transform.eulerAngles = holder.transform.eulerAngles;
         myShadow.GetComponent<Invisible>().movable = true;
@@ -79,7 +79,6 @@ public class Block : MonoBehaviour
                     movable = false;
                     gameObject.transform.position += new Vector3(0, 1, 0);
                     RegisterBlock();
-                    //gameManager.ClearLines();
                     gameManager.SpawnBlock(GameManager.nextBlock);
                     Destroy(myShadow);
                 }
@@ -93,7 +92,6 @@ public class Block : MonoBehaviour
                     movable = false;
                     gameObject.transform.position += new Vector3(0, 1, 0);
                     RegisterBlock();
-                    //gameManager.ClearLines();
                     gameManager.SpawnBlock(GameManager.nextBlock);
                     Destroy(myShadow);
                 }
