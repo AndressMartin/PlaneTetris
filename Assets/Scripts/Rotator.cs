@@ -15,7 +15,6 @@ public class Rotator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(transform.localRotation.y);
         if (transform.localRotation.y >= 0 )
         {
             //Debug.Log("0");

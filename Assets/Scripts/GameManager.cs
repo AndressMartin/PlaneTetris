@@ -4,34 +4,77 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static float dropTime = 0.8f;
+    public static float dropTime = 0.75f;
     public static float quickDropTime = 0.04f;
     public static float nextBlock;
+    public static bool Lost;
     public static int largura = 10, altura = 24;
     public GameObject[] blocos;
     public GameObject[] blocosUI;
     public GameObject currentUIBlock;
     public Transform[,] grid = new Transform[largura, altura];
-    private void Awake()
-    {
-        
-    }
+    public static bool UIBlockEnabled = true;
+    public static bool ShadowBlockEnabled = true;
     void Start()
     {
         SpawnBlock();
     }
     private void Update()
     {
-        for (int y = 0; y < altura; y++)
+        if (!Lost)
         {
-            if (IsLineComplete(y))
+            for (int y = 0; y < altura; y++)
             {
-                DestroyLine(y);
-                MoveLines(y);
+                if (CheckLineCompletion(y))
+                {
+                    DestroyLine(y);
+                    MoveLines(y);
+                }
             }
         }
+        else
+        {
+            DestroyUIBlock();
+        }
+    }
+    public void SpawnBlock()
+    {
+        float currentBlock = Random.Range(0, 1f);
+        currentBlock *= blocos.Length;
+        GetRandomNextBlock();
+        Instantiate(blocos[Mathf.FloorToInt(currentBlock)]);
+        if (UIBlockEnabled) ShowNextBlock();
     }
 
+    public void SpawnBlock(float _currentBlock)
+    {
+        _currentBlock = nextBlock;
+        GetRandomNextBlock();
+
+        while (Mathf.FloorToInt(_currentBlock) == Mathf.FloorToInt(nextBlock))
+        {
+            nextBlock = Random.Range(0, 1f);
+        }
+        Instantiate(blocos[Mathf.FloorToInt(_currentBlock)]);
+        if (UIBlockEnabled)
+        {
+            DestroyUIBlock();
+            ShowNextBlock();
+        }
+    }
+    private void GetRandomNextBlock()
+    {
+        nextBlock = Random.Range(0, 1f);
+        nextBlock *= blocos.Length;
+    }
+    private void ShowNextBlock()
+    {
+        currentUIBlock = Instantiate(blocosUI[Mathf.FloorToInt(nextBlock)]);
+    }
+    private void DestroyUIBlock()
+    {
+        Destroy(currentUIBlock);
+    }
     private void MoveLines(int y)
     {
         for (int f = 0; f < altura-y; f++)
@@ -62,7 +105,7 @@ public class GameManager : MonoBehaviour
         Score.Increase();
     }
 
-    bool IsLineComplete(int y) 
+    bool CheckLineCompletion(int y) 
     {
         for (int x = 0; x < largura; x++)
         {
@@ -73,40 +116,7 @@ public class GameManager : MonoBehaviour
         }
         return true;
     }
-    public void SpawnBlock()
-    {
-        float currentBlock = Random.Range(0, 1f);
-        currentBlock *= blocos.Length;
-        nextBlock = Random.Range(0, 1f);
-        nextBlock *= blocos.Length;
-        Instantiate(blocos[Mathf.FloorToInt(currentBlock)]);
-        ShowNextBlock();
-    }
-
-    public void SpawnBlock(float _currentBlock)
-    {
-        _currentBlock = nextBlock;
-        nextBlock = Random.Range(0, 1f);
-        nextBlock *= blocos.Length;
-
-        while (Mathf.FloorToInt(_currentBlock) == Mathf.FloorToInt(nextBlock))
-        {
-            nextBlock = Random.Range(0, 1f);
-        }
-        DestroyUIBlock();
-        Instantiate(blocos[Mathf.FloorToInt(_currentBlock)]);
-        ShowNextBlock();
-    }
-
     
-    private void ShowNextBlock()
-    {
-        currentUIBlock = Instantiate(blocosUI[Mathf.FloorToInt(nextBlock)]);
-    }
-    private void DestroyUIBlock()
-    {
-        Destroy(currentUIBlock);
-    }
 
 
 
